@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +30,8 @@ DEBUG = True
 
 # For preventing the session to timeout
 SESSION_COOKIE_AGE = 3600
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
 
 ALLOWED_HOSTS = []
 
@@ -37,6 +41,17 @@ STRAVA_CODE = os.getenv('STRAVA_CODE', '75fcccaa51d02c6969ab7fb5f26e2db8d0652583
 STRAVA_REFRESH_TOKEN = os.getenv('STRAVA_REFRESH_TOKEN', 'cd43fd8bc8d4bfd795099181836b96a63db9f347')
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8080']
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),  # Access token lasts for 1 hour
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # Refresh token lasts for 7 days
+    'ROTATE_REFRESH_TOKENS': True,  # Automatically rotate refresh token when used
+    'BLACKLIST_AFTER_ROTATION': True,  # Blacklist the old refresh token after rotation
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

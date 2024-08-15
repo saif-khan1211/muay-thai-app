@@ -23,4 +23,4 @@ class PostSerializer(serializers.ModelSerializer):
     post = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = Post
-        fields = ['id', 'user', 'post', 'title', 'content', 'category', 'created_at', 'updated_at']
+        fields = ['id', 'user', 'post', 'content', 'category', 'created_at', 'updated_at']
